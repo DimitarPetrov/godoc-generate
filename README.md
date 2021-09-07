@@ -6,8 +6,9 @@
 
 ## Overview
 
-`godoc-generate` is a simple command line tool that generates default godoc comments on all **exported** types, functions, consts and vars in the current working directory.
-The godoc comments looks like this, where %s is the name of the type/func/const/var:
+`godoc-generate` is a simple command line tool that generates default godoc comments on all **exported** `types`, `functions`, `consts` and `vars` in the current working directory.
+
+The godoc comments looks like this, where `%s` is the name of the type/func/const/var:
 
 ```
 // %s missing godoc

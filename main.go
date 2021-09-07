@@ -79,12 +79,12 @@ func instrumentFile(fset *token.FileSet, file *ast.File, out io.Writer) error {
 			if len(t.Specs) == 1 {
 				switch s := t.Specs[0].(type) {
 				case *dst.TypeSpec:
-					if s.Name.IsExported() && !containsGoDoc(s.Decs.Start.All(), s.Name.Name) {
+					if s.Name.IsExported() && !containsGoDoc(t.Decs.Start.All(), s.Name.Name) {
 						t.Decs.Start.Prepend(fmt.Sprintf(godocCommentFormat, s.Name.Name))
 					}
 					return true
 				case *dst.ValueSpec:
-					if s.Names[0].IsExported() && !containsGoDoc(s.Decs.Start.All(), s.Names[0].Name) {
+					if s.Names[0].IsExported() && !containsGoDoc(t.Decs.Start.All(), s.Names[0].Name) {
 						t.Decs.Start.Prepend(fmt.Sprintf(godocCommentFormat, s.Names[0].Name))
 					}
 					return true

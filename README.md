@@ -9,7 +9,7 @@
 The godoc comments looks like this:
 
 ```
-// %s missing godoc
+// %s missing godoc.
 ```
 
 Where `%s` is the name of the type/func/const/var.
@@ -36,7 +36,7 @@ It is exported, therefore it is part of the package's interface. It is ideomatic
 If you run `godoc-genenrate` the code will be rewritten the following way:
 
 ```go
-// Multiply missing godoc
+// Multiply missing godoc.
 func Multiply(a, b int) int {
 	return a * b
 }

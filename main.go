@@ -2,9 +2,8 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
-	"github.com/dave/dst"
-	"github.com/dave/dst/decorator"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -13,16 +12,24 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/dave/dst"
+	"github.com/dave/dst/decorator"
 )
 
-const godocCommentFormat = "// %s missing godoc"
+var godocCommentFormat = "// %s missing godoc"
+var godocAllowNoSpace = false
 
 func main() {
 	wd, err := os.Getwd()
 	if err != nil {
 		log.Fatalf("error getting current working directory: %v", err)
 	}
-
+	commentFormat := flag.String("format", "// %s missing godoc", "comment format")
+	allowNoSpace := flag.Bool("allow_no_space", false, "allow comments without space between // and type name")
+	flag.Parse()
+	godocCommentFormat = *commentFormat
+	godocAllowNoSpace = *allowNoSpace
 	log.Print(fmt.Sprintf("Adding default go doc to each exported type/func recursively in %s", wd))
 
 	if err := mapDirectory(wd, instrumentDir); err != nil {
@@ -112,7 +119,8 @@ func instrumentFile(fset *token.FileSet, file *ast.File, out io.Writer) error {
 
 func containsGoDoc(decs []string, name string) bool {
 	for _, dec := range decs {
-		if strings.HasPrefix(dec, "// "+name) {
+		if strings.HasPrefix(dec, "// "+name) ||
+			(godocAllowNoSpace && strings.HasPrefix(dec, "//"+name)) {
 			return true
 		}
 	}

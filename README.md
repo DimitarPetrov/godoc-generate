@@ -14,7 +14,7 @@ The godoc comments looks like this:
 
 Where `%s` is the name of the type/func/const/var.
 
-> NOTE: The comment format can be overridden via the `-format` flag.
+> NOTE: The comment format can be overridden via the `--format` flag.
 
 ## Installation
 

@@ -2,9 +2,8 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
-	"github.com/dave/dst"
-	"github.com/dave/dst/decorator"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -13,9 +12,19 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/dave/dst"
+	"github.com/dave/dst/decorator"
 )
 
-const godocCommentFormat = "// %s missing godoc."
+const defaultGodocCommentFormat = "// %s missing godoc."
+
+var godocCommentFormat string
+
+func init() {
+	flag.StringVar(&godocCommentFormat, "format", defaultGodocCommentFormat, "comment format")
+	flag.Parse()
+}
 
 func main() {
 	wd, err := os.Getwd()
@@ -112,7 +121,7 @@ func instrumentFile(fset *token.FileSet, file *ast.File, out io.Writer) error {
 
 func containsGoDoc(decs []string, name string) bool {
 	for _, dec := range decs {
-		if strings.HasPrefix(dec, "// "+name) {
+		if strings.HasPrefix(dec, "// "+name) || strings.HasPrefix(dec, "//"+name) {
 			return true
 		}
 	}

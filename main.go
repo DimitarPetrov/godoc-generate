@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-const godocCommentFormat = "// %s missing godoc"
+const godocCommentFormat = "// %s missing godoc."
 
 func main() {
 	wd, err := os.Getwd()

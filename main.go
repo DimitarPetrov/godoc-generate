@@ -17,7 +17,7 @@ import (
 	"github.com/dave/dst/decorator"
 )
 
-var godocCommentFormat = "// %s missing godoc"
+var godocCommentFormat = "// %s missing godoc."
 var godocAllowNoSpace = false
 
 func main() {

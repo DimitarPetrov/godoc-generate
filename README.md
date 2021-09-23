@@ -18,5 +18,5 @@ The godoc comments looks like this, where `%s` is the name of the type/func/cons
 
 #### Installing from Source
 ```
-go install github.com/DimitarPetrov/godoc-generate
+go install github.com/DimitarPetrov/godoc-generate@latest
 ```
